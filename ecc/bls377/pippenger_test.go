@@ -104,7 +104,7 @@ func BenchmarkGus549(b *testing.B) {
 	fmt.Println("GOMAXPROCS was", runtime.GOMAXPROCS(1))
 
 	curve := BLS377()
-	numPoints, _ := testPointsG1MultiExpResults()
+	numPoints := [...]int{4e4, 1e5, 1e6}
 	var exp G1Jac
 	cs := [...]int{8, 16}
 
