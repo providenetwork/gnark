@@ -58,6 +58,17 @@ func TestGus549(t *testing.T) {
 		if !finalPoint.Equal(&testPoint) {
 			t.Fatal("error multi <=50 points) exp")
 		}
+
+		testLotOfPoint.Gus549Old(curve, samplePoints, sampleScalars, c)
+		testPoint.Gus549Old(curve, samplePoints[:fewPoints], sampleScalars[:fewPoints], c)
+
+		if !finalLotOfPoint.Equal(&testLotOfPoint) {
+			t.Fatal("error multi (>50 points) exp")
+		}
+		if !finalPoint.Equal(&testPoint) {
+			t.Fatal("error multi <=50 points) exp")
+		}
+
 	}
 }
 
@@ -121,6 +132,11 @@ func BenchmarkGus549(b *testing.B) {
 			b.Run(fmt.Sprintf("%d-Gus549-%d", numPoints[j], c), func(b *testing.B) {
 				for i := 0; i < b.N; i++ {
 					exp.Gus549(curve, pointsAffine, scalars, c)
+				}
+			})
+			b.Run(fmt.Sprintf("%d-Gus549Old-%d", numPoints[j], c), func(b *testing.B) {
+				for i := 0; i < b.N; i++ {
+					exp.Gus549Old(curve, pointsAffine, scalars, c)
 				}
 			})
 		}
