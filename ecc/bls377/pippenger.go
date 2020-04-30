@@ -19,8 +19,6 @@ func (p *G1Jac) Gus549(curve *Curve, points []G1Affine, scalars []fr.Element, c 
 
 	buckets := make([]G1Jac, (1<<c)-1)
 
-	p.Set(&curve.g1Infinity)
-
 	// notation: i ranges over points, scalars
 	// notation: j ranges over c-bit radixes in a scalar
 	// notation: s[i][j] := the jth c-bit radix of scalar[i]
@@ -65,7 +63,7 @@ func (p *G1Jac) Gus549(curve *Curve, points []G1Affine, scalars []fr.Element, c 
 		// accumulate totalj into result
 		// if this is not the first iteration
 		// then double p c times first
-		if j == t {
+		if j == t-1 {
 			p.Set(&totalj)
 		} else {
 			for l := 0; l < c; l++ {
